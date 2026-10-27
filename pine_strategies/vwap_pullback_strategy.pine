@@ -1,0 +1,45 @@
+//@version=5
+strategy("AI Claude - VWAP Trend Pullback Strategy", overlay=true, margin_long=100, margin_short=100, default_qty_type=strategy.percent_of_equity, default_qty_value=10)
+
+// --- Strategy Inputs ---
+fast_ema_len = input.int(9, title="Fast EMA Length")
+slow_ema_len = input.int(21, title="Slow EMA Length")
+trend_ema_len = input.int(200, title="Trend Filter (200 EMA)")
+atr_len      = input.int(14, title="ATR Length")
+atr_mult     = input.float(1.5, title="Stop Loss ATR Multiplier")
+risk_reward  = input.float(2.0, title="Risk/Reward Ratio")
+secret_key   = input.string("super_secret_tradingview_passphrase", title="Webhook Secret")
+
+// --- Indicators ---
+fast_ema = ta.ema(close, fast_ema_len)
+slow_ema = ta.ema(close, slow_ema_len)
+trend_ema = ta.ema(close, trend_ema_len)
+vwap_val = ta.vwap(hlc3)
+atr_val  = ta.atr(atr_len)
+
+// --- Conditions ---
+bullish_trend = (close > trend_ema) and (fast_ema > slow_ema)
+pullback_to_vwap = (low <= vwap_val) and (close >= vwap_val)
+long_entry_condition = bullish_trend and pullback_to_vwap and (close > open)
+
+bearish_trend = (close < trend_ema) and (fast_ema < slow_ema)
+bounce_to_vwap = (high >= vwap_val) and (close <= vwap_val)
+short_entry_condition = bearish_trend and bounce_to_vwap and (close < open)
+
+// --- Execution & Bracket ---
+var float long_stop = na
+var float long_target = na
+
+if (long_entry_condition and strategy.position_size == 0)
+    long_stop := close - (atr_val * atr_mult)
+    long_target := close + ((close - long_stop) * risk_reward)
+    strategy.entry("Long", strategy.long, alert_message='{"ticker": "' + syminfo.ticker + '", "action": "buy", "price": ' + str.tostring(close) + ', "stop_loss": ' + str.tostring(long_stop) + ', "take_profit": ' + str.tostring(long_target) + ', "strategy": "VWAP Pullback", "secret": "' + secret_key + '"}')
+    strategy.exit("Exit Long", "Long", stop=long_stop, limit=long_target, alert_message='{"ticker": "' + syminfo.ticker + '", "action": "close", "strategy": "VWAP Pullback", "secret": "' + secret_key + '"}')
+
+// --- Plotting ---
+plot(fast_ema, title="9 EMA", color=color.blue, linewidth=1)
+plot(slow_ema, title="21 EMA", color=color.orange, linewidth=1)
+plot(trend_ema, title="200 EMA", color=color.white, linewidth=2)
+plot(vwap_val, title="VWAP", color=color.yellow, linewidth=2)
+
+plotshape(long_entry_condition and strategy.position_size == 0, title="Long Signal", location=location.belowbar, color=color.green, style=shape.triangleup, size=size.small)

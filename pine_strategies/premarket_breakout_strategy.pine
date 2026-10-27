@@ -1,0 +1,50 @@
+//@version=5
+strategy("AI Claude - Premarket High/Low Breakout Strategy", overlay=true, margin_long=100, margin_short=100, default_qty_type=strategy.percent_of_equity, default_qty_value=10)
+
+// --- Strategy Inputs ---
+session_time = input.session("0400-0930", title="Premarket Session Hours (Exchange Time)")
+atr_len      = input.int(14, title="ATR Length")
+atr_sl_mult  = input.float(1.5, title="ATR Stop Loss Multiplier")
+risk_reward  = input.float(2.0, title="Risk/Reward Ratio")
+secret_key   = input.string("super_secret_tradingview_passphrase", title="Webhook Secret")
+
+// --- Variables to track Premarket High & Low ---
+var float pm_high = na
+var float pm_low = na
+var bool in_session = false
+
+is_premarket = not na(time(timeframe.period, session_time + ":1234567"))
+is_regular_market = not na(time(timeframe.period, "0930-1600:1234567"))
+
+if (is_premarket)
+    if (not in_session)
+        pm_high := high
+        pm_low := low
+        in_session := true
+    else
+        pm_high := math.max(pm_high, high)
+        pm_low := math.min(pm_low, low)
+else
+    in_session := false
+
+// --- Indicators ---
+atr_val = ta.atr(atr_len)
+
+// --- Breakout Entry Logic (Regular Market Hours Only) ---
+var float long_stop = na
+var float long_target = na
+var float short_stop = na
+var float short_target = na
+
+long_breakout = is_regular_market and (close > pm_high) and (close[1] <= pm_high)
+short_breakout = is_regular_market and (close < pm_low) and (close[1] >= pm_low)
+
+if (long_breakout and strategy.position_size == 0)
+    long_stop := pm_high - (atr_val * atr_sl_mult)
+    long_target := close + ((close - long_stop) * risk_reward)
+    strategy.entry("PM Long", strategy.long, alert_message='{"ticker": "' + syminfo.ticker + '", "action": "buy", "price": ' + str.tostring(close) + ', "stop_loss": ' + str.tostring(long_stop) + ', "take_profit": ' + str.tostring(long_target) + ', "strategy": "PM Breakout", "secret": "' + secret_key + '"}')
+    strategy.exit("Exit PM Long", "PM Long", stop=long_stop, limit=long_target, alert_message='{"ticker": "' + syminfo.ticker + '", "action": "close", "strategy": "PM Breakout", "secret": "' + secret_key + '"}')
+
+// --- Visual Plots ---
+plot(is_regular_market ? pm_high : na, title="Premarket High", color=color.green, style=plot.style_linebr, linewidth=2)
+plot(is_regular_market ? pm_low : na, title="Premarket Low", color=color.red, style=plot.style_linebr, linewidth=2)

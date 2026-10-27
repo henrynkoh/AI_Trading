@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALPHA-3 // High-Velocity NASDAQ & NYSE Momentum Scalp Terminal</title>
+    <meta name="description" content="Singular comprehensive AI trading system monitoring all NASDAQ and NYSE tickers for abnormal volume surges, price impact velocity, and the Top 3 scalp trade opportunities.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/static/style.css">
+    
+    <!-- TradingView Advanced Widget Library -->
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+</head>
+<body class="dark-theme">
+    <!-- Top Navigation Header -->
+    <header class="terminal-header">
+        <div class="brand-group">
+            <div class="brand-logo">
+                <span class="logo-icon">⚡</span>
+                <span class="brand-title">ALPHA<span class="accent-cyan">-3</span></span>
+            </div>
+            <div class="brand-subtitle">QUANTUM MOMENTUM SCALP TERMINAL</div>
+            <div class="badge-live-pulse" id="market-status-badge">
+                <span class="pulse-dot"></span>
+                <span id="market-status-text">US MARKET LIVE</span>
+            </div>
+        </div>
+
+        <div class="header-metrics">
+            <div class="metric-pill">
+                <span class="pill-label">UNIVERSE SCANNED</span>
+                <span class="pill-value text-cyan" id="universe-count">4,580+ TICKERS</span>
+            </div>
+            <div class="metric-pill">
+                <span class="pill-label">TRADINGVIEW DESKTOP</span>
+                <span class="pill-value text-emerald" id="tv-connection-status">
+                    <span class="status-indicator"></span> CDP PORT 9222
+                </span>
+            </div>
+            <div class="metric-pill">
+                <span class="pill-label">EXECUTION ENGINE</span>
+                <span class="pill-value text-amber" id="execution-mode">DRY-RUN / SIM</span>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <button id="btn-sound-toggle" class="btn-icon" title="Toggle Audio Chimes">
+                <span id="sound-icon">🔔</span>
+            </button>
+            <div class="auto-scan-control">
+                <label for="auto-scan-toggle" class="switch-label">AUTO-SCAN</label>
+                <label class="switch">
+                    <input type="checkbox" id="auto-scan-toggle" checked>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <button id="btn-manual-scan" class="btn-primary">
+                <span class="btn-icon-spin" id="scan-spinner">🔄</span>
+                <span>SCAN NOW</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Terminal Container -->
+    <main class="terminal-body">
+        
+        <!-- TOP 3 HERO SECTION -->
+        <section class="top3-hero-section">
+            <div class="section-header">
+                <div class="title-with-badge">
+                    <h2>🎯 TOP 3 HIGH-PROBABILITY MOMENTUM SCALPS</h2>
+                    <span class="badge-accent">ALGORITHMIC ALPHA-3 MATRIX</span>
+                </div>
+                <div class="section-meta">
+                    <span class="scan-timestamp" id="last-updated-text">Updating...</span>
+                    <span class="confidence-tag">⚡ 99% MOMENTUM CONVICTION SCORE</span>
+                </div>
+            </div>
+
+            <!-- Top 3 Cards Grid -->
+            <div class="top3-cards-container" id="top3-cards-wrapper">
+                <!-- Dynamically populated via JS -->
+                <div class="card-skeleton">Scanning all NASDAQ & NYSE tickers...</div>
+                <div class="card-skeleton">Evaluating volume surge & price impact...</div>
+                <div class="card-skeleton">Calculating micro-scalp target range...</div>
+            </div>
+        </section>
+
+        <!-- SPLIT WORKSPACE: CHART + MOVERS GRID -->
+        <section class="workspace-grid">
+            
+            <!-- Left Workspace: Interactive TradingView Live Chart -->
+            <div class="chart-container-panel">
+                <div class="panel-header">
+                    <div class="active-ticker-info">
+                        <span class="active-symbol" id="chart-active-symbol">NASDAQ:AIOK</span>
+                        <span class="active-company" id="chart-active-name">AI OKTO CORP.</span>
+                    </div>
+                    <div class="chart-controls">
+                        <div class="timeframe-buttons">
+                            <button class="btn-tf active" data-tf="1">1m</button>
+                            <button class="btn-tf" data-tf="3">3m</button>
+                            <button class="btn-tf" data-tf="5">5m</button>
+                            <button class="btn-tf" data-tf="15">15m</button>
+                            <button class="btn-tf" data-tf="D">D</button>
+                        </div>
+                        <button id="btn-sync-chart-desktop" class="btn-secondary" title="Sync current chart to TradingView Desktop App">
+                            <span>⚡ SYNC TO TV DESKTOP</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="chart-embed-wrapper" id="tradingview-widget-container">
+                    <!-- Embedded TradingView chart injected here -->
+                </div>
+            </div>
+
+            <!-- Right Workspace: Full NASDAQ & NYSE Movers Table -->
+            <div class="movers-container-panel">
+                <div class="panel-header">
+                    <div class="panel-title-group">
+                        <h3>📊 ALL NASDAQ & NYSE ACTIVE MOVERS</h3>
+                        <span class="badge-count" id="movers-count-badge">50 STOCKS</span>
+                    </div>
+                    <div class="panel-search-box">
+                        <input type="text" id="search-ticker-input" placeholder="Search symbol or company...">
+                    </div>
+                </div>
+
+                <!-- Screener Filters -->
+                <div class="filter-toolbar">
+                    <button class="filter-chip active" data-filter="all">ALL US EQUITIES</button>
+                    <button class="filter-chip" data-filter="NASDAQ">NASDAQ</button>
+                    <button class="filter-chip" data-filter="NYSE">NYSE</button>
+                    <button class="filter-chip" data-filter="high-rvol">RVOL &gt; 5x</button>
+                    <button class="filter-chip" data-filter="penny">&lt; $10 SCALPS</button>
+                    <button class="filter-chip" data-filter="large">$50+ MOVERS</button>
+                </div>
+
+                <!-- Table Container -->
+                <div class="table-scroll-container">
+                    <table class="movers-table" id="all-movers-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>TICKER</th>
+                                <th>EXCHANGE</th>
+                                <th>PRICE</th>
+                                <th>CHANGE</th>
+                                <th>FROM OPEN</th>
+                                <th>RVOL</th>
+                                <th>VOLUME</th>
+                                <th>ALPHA SCORE</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody id="movers-table-body">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- BOTTOM LOG DRAWER -->
+        <section class="execution-drawer">
+            <div class="drawer-header">
+                <div class="drawer-title">
+                    <span class="terminal-prompt">&gt;</span> LIVE TRADE EXECUTION & SIGNAL LOGS
+                </div>
+                <div class="drawer-stats">
+                    <span id="log-count-text">0 Events Recorded</span>
+                </div>
+            </div>
+            <div class="drawer-content" id="terminal-logs-feed">
+                <div class="log-entry log-system">
+                    <span class="log-time">00:00:00</span>
+                    <span class="log-tag tag-system">SYSTEM</span>
+                    <span class="log-msg">Alpha-3 Terminal initialized. Scanning NASDAQ & NYSE master universe with TradingView CDP active on port 9222.</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal for Scalp Order Confirmation -->
+    <div class="modal-backdrop" id="order-modal-backdrop">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>⚡ EXECUTE MOMENTUM SCALP ORDER</h3>
+                <button class="btn-close-modal" id="btn-close-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-order-details">
+                <!-- Dynamically inserted order details -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="btn-cancel-order">CANCEL</button>
+                <button class="btn-accent-buy" id="btn-confirm-order">CONFIRM & SEND ORDER</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Logic -->
+    <script src="/static/app.js"></script>
+</body>
+</html>
