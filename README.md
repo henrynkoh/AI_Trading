@@ -6,6 +6,17 @@ It isolates abnormal trade volume surges and price impact velocity, automaticall
 
 ---
 
+## 📚 Complete Documentation & Guides
+
+| Document | Description | Link |
+|---|---|---|
+| **⚡ Quickstart Guide** | 3-minute rapid launch checklist & setup | [docs/quickstart.md](docs/quickstart.md) |
+| **📖 Technical Manual** | In-depth architecture, algorithm formulas & config | [docs/manual.md](docs/manual.md) |
+| **🎓 Hands-On Tutorial** | Morning routine walkthrough & live scalp execution | [docs/tutorial.md](docs/tutorial.md) |
+| **📢 Marketing & Ads Kit**| Ads for Facebook, IG, Threads, Naver, Tistory, etc. | [marketing/](marketing/) |
+
+---
+
 ## 🏛️ System Architecture
 
 ```mermaid
@@ -58,13 +69,16 @@ For each of the Top 3 tickers, the system calculates:
 ## 🚀 Running the Terminal
 
 ```bash
-# 1. Start TradingView Desktop with remote debugging
-/Users/henryoh/Documents/sass/ai-trading-system/launch_tradingview.sh
+# 1. Install dependencies
+pip install -r requirements.txt
 
-# 2. Start the Unified Server (FastAPI + Web Terminal)
-python3 /Users/henryoh/Documents/sass/ai-trading-system/server.py
+# 2. Start TradingView Desktop with remote debugging
+./launch_tradingview.sh
 
-# 3. Open in your browser
+# 3. Start the Unified Server (FastAPI + Web Terminal)
+python3 server.py
+
+# 4. Open in your browser
 http://localhost:5001
 ```
 
@@ -77,3 +91,12 @@ http://localhost:5001
 - `POST /api/sync-desktop`: `{ "symbol": "EVG", "timeframe": "1" }` — syncs desktop chart.
 - `POST /api/execute-trade`: `{ "symbol": "EVG", "action": "buy", "qty": 10, "price": 10.40, "stop_loss": 10.22, "take_profit": 10.67 }`.
 - `POST /webhook`: Handles TradingView alert webhooks.
+
+---
+
+## 📈 Included Pine Script Strategies
+
+1. **VWAP Trend Pullback Strategy** ([`pine_strategies/vwap_pullback_strategy.pine`](pine_strategies/vwap_pullback_strategy.pine))
+2. **Premarket Breakout Strategy** ([`pine_strategies/premarket_breakout_strategy.pine`](pine_strategies/premarket_breakout_strategy.pine))
+
+Both verified with TradingView's compiler (0 errors, 0 warnings).
