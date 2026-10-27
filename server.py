@@ -229,11 +229,18 @@ async def receive_webhook(request: Request, background_tasks: BackgroundTasks):
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 @app.get("/")
-def serve_index():
+def serve_landing():
+    landing_file = os.path.join(os.path.dirname(__file__), "index.html")
+    if os.path.exists(landing_file):
+        return FileResponse(landing_file)
     index_file = os.path.join(STATIC_DIR, "index.html")
-    if os.path.exists(index_file):
-        return FileResponse(index_file)
-    return {"message": "Alpha-3 Terminal API ready. Frontend building..."}
+    return FileResponse(index_file)
+
+@app.get("/terminal")
+@app.get("/cockpit")
+def serve_cockpit():
+    cockpit_file = os.path.join(STATIC_DIR, "index.html")
+    return FileResponse(cockpit_file)
 
 if __name__ == "__main__":
     import uvicorn

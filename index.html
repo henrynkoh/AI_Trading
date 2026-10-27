@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALPHA-3 // Quantum Momentum Scalp Terminal & TradingView AI</title>
+    <meta name="description" content="All-in-one institutional-grade AI trading system monitoring all 4,500+ NASDAQ & NYSE stocks in real time, isolating the Top 3 high-probability scalp setups.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           ALPHA-3 LANDING PAGE STYLESHEET
+           Theme: Cyber-Financial Dark Glassmorphism with Electric Accents
+           ========================================================================== */
+        :root {
+            --bg-base: #06090e;
+            --bg-surface: #0b111a;
+            --bg-card: rgba(15, 23, 36, 0.7);
+            --bg-card-hover: rgba(22, 34, 52, 0.85);
+            --bg-glass: rgba(11, 17, 26, 0.8);
+            
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-emerald: rgba(0, 245, 155, 0.35);
+            --border-cyan: rgba(0, 210, 255, 0.35);
+            --border-purple: rgba(168, 85, 247, 0.35);
+
+            --accent-emerald: #00f59b;
+            --accent-cyan: #00d2ff;
+            --accent-purple: #a855f7;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+
+            --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            --sidebar-width: 280px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Glow Backgrounds */
+        .ambient-glow-1 {
+            position: fixed;
+            top: -100px;
+            left: 20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 210, 255, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .ambient-glow-2 {
+            position: fixed;
+            bottom: -150px;
+            right: 10%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(0, 245, 155, 0.06) 0%, rgba(168, 85, 247, 0.04) 50%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* --------------------------------------------------------------------------
+           LEFT SIDEBAR NAVIGATION (Scrollable & Sticky)
+           -------------------------------------------------------------------------- */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            background: rgba(11, 17, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            z-index: 40;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem 1.4rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-badge {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: 0 0 15px rgba(0, 245, 155, 0.3);
+        }
+
+        .brand-text h1 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            color: #ffffff;
+            line-height: 1.2;
+        }
+
+        .brand-text span {
+            color: var(--accent-cyan);
+        }
+
+        .brand-tag {
+            font-size: 0.62rem;
+            font-weight: 700;
+            color: var(--accent-emerald);
+            letter-spacing: 0.1em;
+        }
+
+        /* Scrollable Sidebar Nav List */
+        .sidebar-nav-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.25rem 0.85rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sidebar-nav-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar-nav-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+        }
+
+        .nav-category-title {
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            padding: 0 0.65rem;
+            margin-bottom: 0.45rem;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.55rem 0.75rem;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link.active {
+            color: var(--accent-emerald);
+            background: rgba(0, 245, 155, 0.1);
+            font-weight: 700;
+        }
+
+        .nav-link.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 15%;
+            bottom: 15%;
+            width: 3px;
+            background: var(--accent-emerald);
+            border-radius: 4px;
+        }
+
+        .nav-icon {
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            padding: 1.2rem;
+            border-top: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.2);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .pulse-live {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--accent-emerald);
+            font-weight: 700;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-emerald);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-emerald);
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.7; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.7; }
+        }
+
+        /* --------------------------------------------------------------------------
+           MAIN CONTENT WRAPPER
+           -------------------------------------------------------------------------- */
+        .main-content {
+            flex: 1;
+            padding: 2.5rem 3.5rem;
+            max-width: 1300px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar { display: none; }
+            .main-content { padding: 1.5rem; }
+        }
+
+        /* Section Styling */
+        section {
+            padding: 4rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(0, 210, 255, 0.1);
+            border: 1px solid var(--border-cyan);
+            color: var(--accent-cyan);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            padding: 0.3rem 0.75rem;
+            border-radius: 9999px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+            line-height: 1.25;
+            margin-bottom: 1rem;
+        }
+
+        .section-title span {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-desc {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 780px;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        /* --------------------------------------------------------------------------
+           HERO SECTION
+           -------------------------------------------------------------------------- */
+        .hero-section {
+            padding-top: 1rem;
+            padding-bottom: 4.5rem;
+        }
+
+        .hero-headline {
+            font-size: 3.4rem;
+            font-weight: 900;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-headline .gradient-text {
+            background: linear-gradient(135deg, #00d2ff 0%, #00f59b 50%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 820px;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        .hero-stats-banner {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.25rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            backdrop-filter: blur(12px);
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .stat-num {
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: var(--font-mono);
+            letter-spacing: -0.02em;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.06em;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-glow {
+            background: linear-gradient(135deg, #00d2ff 0%, #00f59b 100%);
+            color: #06090e;
+            font-weight: 800;
+            font-size: 0.95rem;
+            padding: 0.85rem 1.8rem;
+            border-radius: 10px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            box-shadow: 0 4px 20px rgba(0, 245, 155, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(0, 245, 155, 0.6);
+        }
+
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 0.85rem 1.8rem;
+            border-radius: 10px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-cyan);
+        }
+
+        /* --------------------------------------------------------------------------
+           TOP 3 MOMENTUM SCALP MATRIX (Interactive Cards)
+           -------------------------------------------------------------------------- */
+        .cards-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .interactive-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.5rem;
+            backdrop-filter: blur(16px);
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.25s ease;
+        }
+
+        .interactive-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-emerald);
+            box-shadow: 0 10px 30px rgba(0, 245, 155, 0.15);
+        }
+
+        .interactive-card.rank-1 {
+            border-color: rgba(0, 245, 155, 0.4);
+            background: linear-gradient(180deg, rgba(0, 245, 155, 0.05) 0%, rgba(15, 23, 36, 0.75) 100%);
+        }
+
+        .interactive-card.rank-1::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, #00d2ff, #00f59b);
+        }
+
+        .card-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .card-ticker-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            font-family: var(--font-mono);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .exchange-badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: var(--text-secondary);
+        }
+
+        .company-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .score-pill {
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 0.25rem 0.65rem;
+            border-radius: 9999px;
+            background: rgba(0, 245, 155, 0.15);
+            border: 1px solid rgba(0, 245, 155, 0.3);
+            color: var(--accent-emerald);
+            font-family: var(--font-mono);
+        }
+
+        .card-price-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .big-price {
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: var(--font-mono);
+            color: #ffffff;
+        }
+
+        .pct-badge {
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            color: var(--accent-emerald);
+        }
+
+        .metrics-grid-2x2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 0.85rem;
+            border-radius: 8px;
+        }
+
+        .metric-cell {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .metric-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .metric-val {
+            font-size: 0.95rem;
+            font-weight: 700;
+            font-family: var(--font-mono);
+        }
+
+        .bracket-box {
+            background: rgba(0, 245, 155, 0.03);
+            border: 1px dashed rgba(0, 245, 155, 0.3);
+            border-radius: 8px;
+            padding: 0.85rem;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .bracket-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* --------------------------------------------------------------------------
+           INTERACTIVE DEMO / PREVIEW TABS
+           -------------------------------------------------------------------------- */
+        .interactive-container {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .tab-bar {
+            display: flex;
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .tab-btn.active {
+            color: var(--accent-cyan);
+            border-bottom: 2px solid var(--accent-cyan);
+            background: rgba(0, 210, 255, 0.05);
+        }
+
+        .tab-content {
+            padding: 2rem;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Code Snippet Container */
+        .code-box {
+            background: #080d14;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 1.25rem;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .btn-copy {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 0.35rem 0.65rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-copy:hover {
+            background: var(--accent-cyan);
+            color: #06090e;
+        }
+
+        /* --------------------------------------------------------------------------
+           MARKETING CHANNELS ACCORDION / GRID
+           -------------------------------------------------------------------------- */
+        .marketing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .channel-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            transition: all 0.2s ease;
+        }
+
+        .channel-card:hover {
+            border-color: var(--border-cyan);
+            transform: translateY(-2px);
+        }
+
+        .channel-header {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+
+        .channel-badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            background: rgba(0, 210, 255, 0.15);
+            color: var(--accent-cyan);
+        }
+
+        .channel-desc {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .channel-link {
+            color: var(--accent-emerald);
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-top: auto;
+        }
+
+        .channel-link:hover {
+            text-decoration: underline;
+        }
+
+        /* --------------------------------------------------------------------------
+           FLOATING GITHUB BADGE (Bottom-Right)
+           -------------------------------------------------------------------------- */
+        .floating-github-link {
+            position: fixed;
+            bottom: 24px;
+            right: 28px;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(0, 245, 155, 0.4);
+            backdrop-filter: blur(14px);
+            border-radius: 9999px;
+            padding: 0.65rem 1.35rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: #ffffff;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 245, 155, 0.25);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: floatGlow 3s infinite alternate;
+        }
+
+        .floating-github-link:hover {
+            transform: translateY(-4px) scale(1.04);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 210, 255, 0.5);
+            background: #0f172a;
+        }
+
+        @keyframes floatGlow {
+            0% { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 245, 155, 0.2); }
+            100% { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 210, 255, 0.35); }
+        }
+
+        .github-svg {
+            width: 22px;
+            height: 22px;
+            fill: #ffffff;
+        }
+
+        .gh-badge-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gh-title {
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+        }
+
+        .gh-sub {
+            font-size: 0.62rem;
+            font-weight: 700;
+            color: var(--accent-emerald);
+        }
+
+        .star-icon {
+            color: #fbbf24;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+
+    <!-- LEFT SIDEBAR: SCROLLABLE UP & DOWN TO EACH SUB-SECTION -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-badge">⚡</div>
+            <div class="brand-text">
+                <h1>ALPHA<span>-3</span></h1>
+                <div class="brand-tag">MOMENTUM SCALP TERMINAL</div>
+            </div>
+        </div>
+
+        <div class="sidebar-nav-container">
+            
+            <div class="nav-category-title">SYSTEM NAVIGATION</div>
+            <ul class="nav-menu">
+                <li><a href="#hero" class="nav-link active"><span class="nav-icon">🚀</span> Overview & Hero</a></li>
+                <li><a href="#top3-section" class="nav-link"><span class="nav-icon">🎯</span> Top 3 Scalp Matrix</a></li>
+                <li><a href="#scanner-section" class="nav-link"><span class="nav-icon">📊</span> 4,500+ NASDAQ & NYSE</a></li>
+                <li><a href="#desktop-cdp" class="nav-link"><span class="nav-icon">🖥️</span> TradingView CDP Bridge</a></li>
+                <li><a href="#pine-strategies" class="nav-link"><span class="nav-icon">📈</span> Pine Script Strategies</a></li>
+                <li><a href="#live-cockpit" class="nav-link"><span class="nav-icon">⚡</span> Terminal Cockpit Preview</a></li>
+            </ul>
+
+            <div class="nav-category-title">DOCUMENTATION SUITE</div>
+            <ul class="nav-menu">
+                <li><a href="#docs-quickstart" class="nav-link"><span class="nav-icon">⏱️</span> 3-Min Quickstart</a></li>
+                <li><a href="#docs-manual" class="nav-link"><span class="nav-icon">📖</span> Technical Manual</a></li>
+                <li><a href="#docs-tutorial" class="nav-link"><span class="nav-icon">🎓</span> Scalping Tutorial</a></li>
+            </ul>
+
+            <div class="nav-category-title">MARKETING & ADS KIT</div>
+            <ul class="nav-menu">
+                <li><a href="#marketing-suite" class="nav-link"><span class="nav-icon">📢</span> Omnichannel Campaigns</a></li>
+                <li><a href="#marketing-naver-tistory" class="nav-link"><span class="nav-icon">🇰🇷</span> Naver & Tistory Blog</a></li>
+                <li><a href="#marketing-social" class="nav-link"><span class="nav-icon">📱</span> Facebook, IG & Threads</a></li>
+            </ul>
+
+            <div class="nav-category-title">DEPLOYMENT</div>
+            <ul class="nav-menu">
+                <li><a href="#installation" class="nav-link"><span class="nav-icon">🛠️</span> Rapid Installation</a></li>
+            </ul>
+
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="pulse-live">
+                <span class="dot"></span>
+                <span>SYSTEM ACTIVE • CDP PORT 9222</span>
+            </div>
+            <div>Scans 4,500+ US Equities every 4s</div>
+        </div>
+    </aside>
+
+    <!-- MAIN SCROLLABLE CONTENT AREA -->
+    <main class="main-content">
+
+        <!-- 1. HERO SECTION -->
+        <section id="hero" class="hero-section">
+            <div class="section-tag">⚡ FULL US EQUITY MARKET COVERAGE</div>
+            <h1 class="hero-headline">
+                Scan 4,500+ NASDAQ & NYSE Stocks in 0.35s.<br>
+                <span class="gradient-text">Isolate the Top 3 Scalps.</span>
+            </h1>
+            <p class="hero-sub">
+                A singular, comprehensive AI-driven algorithmic trading system. It tracks abnormal trade volume surges, calculates price impact velocity, and automatically extracts the Top 3 high-probability setups to capture upward price expansions within seconds to minutes.
+            </p>
+
+            <div class="hero-stats-banner">
+                <div class="stat-card">
+                    <span class="stat-num" style="color: var(--accent-cyan);">4,582+</span>
+                    <span class="stat-label">STOCKS MONITORED REAL-TIME</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-num" style="color: var(--accent-emerald);">0.35s</span>
+                    <span class="stat-label">SCAN LATENCY ACROSS US MARKET</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-num" style="color: var(--accent-purple);">99.2%</span>
+                    <span class="stat-label">MOMENTUM SCALP CONVICTION</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-num" style="color: var(--accent-amber);">1-Click</span>
+                    <span class="stat-label">TRADINGVIEW DESKTOP CDP SYNC</span>
+                </div>
+            </div>
+
+            <div class="hero-cta-group">
+                <a href="/terminal" class="btn-glow">
+                    <span>⚡ Launch Live Web Cockpit</span>
+                </a>
+                <a href="https://github.com/henrynkoh/AI_Trading" target="_blank" class="btn-glass">
+                    <span>📂 View on GitHub Repository</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- 2. TOP 3 SCALP MATRIX -->
+        <section id="top3-section">
+            <div class="section-tag">🎯 DECISION-MAKING ENGINE</div>
+            <h2 class="section-title">The "Alpha-3" <span>Momentum Scalp Matrix</span></h2>
+            <p class="section-desc">
+                By the time a stock is trending on social media, institutions are already looking to dump into retail liquidity. ALPHA-3 detects relative volume acceleration the second it enters the order book, calculating exact brackets for quick 45-second to 3-minute scalps.
+            </p>
+
+            <div class="cards-grid-3">
+                <!-- Card 1 -->
+                <div class="interactive-card rank-1">
+                    <div class="card-header-flex">
+                        <div>
+                            <div class="card-ticker-title">
+                                <span>EVG</span>
+                                <span class="exchange-badge">NYSE</span>
+                            </div>
+                            <div class="company-subtitle">EATON VANCE CORP.</div>
+                        </div>
+                        <span class="score-pill">91.0% PROBABILITY</span>
+                    </div>
+                    <div class="card-price-display">
+                        <span class="big-price">$10.40</span>
+                        <span class="pct-badge">+2.46%</span>
+                    </div>
+                    <div class="metrics-grid-2x2">
+                        <div class="metric-cell">
+                            <span class="metric-label">RELATIVE VOL (RVOL)</span>
+                            <span class="metric-val" style="color: var(--accent-cyan);">12.2x normal</span>
+                        </div>
+                        <div class="metric-cell">
+                            <span class="metric-label">VWAP LEVEL</span>
+                            <span class="metric-val" style="color: var(--accent-amber);">$10.22</span>
+                        </div>
+                    </div>
+                    <div class="bracket-box">
+                        <div class="bracket-row">
+                            <span style="color: var(--text-muted);">Micro-Target 1 (1–2m):</span>
+                            <strong style="color: var(--accent-emerald);">$10.67 (+2.6%)</strong>
+                        </div>
+                        <div class="bracket-row">
+                            <span style="color: var(--text-muted);">Scalp Runner Target 2:</span>
+                            <strong style="color: var(--accent-cyan);">$10.90 (+4.8%)</strong>
+                        </div>
+                        <div class="bracket-row">
+                            <span style="color: var(--text-muted);">Hard Stop Loss:</span>
+                            <strong style="color: var(--accent-rose);">$10.22 (Below VWAP)</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="interactive-card">
+                    <div class="card-header-flex">
+                        <div>
+                            <div class="card-ticker-title">
+                                <span>JACS</span>
+                                <span class="exchange-badge">NYSE</span>
+                            </div>
+                            <div class="company-subtitle">JACKSON ACQUISITION</div>
+                        </div>
+                        <span class="score-pill" style="color: var(--accent-cyan); border-color: rgba(0,210,255,0.3); background: rgba(0,210,255,0.1);">80.0% PROBABILITY</span>
+                    </div>
+                    <div class="card-price-display">
+                        <span class="big-price">$10.83</span>
+                        <span class="pct-badge">+0.92%</span>
+                    </div>
+                    <div class="metrics-grid-2x2">
+                        <div class="metric-cell">
+                            <span class="metric-label">RELATIVE VOL (RVOL)</span>
+                            <span class="metric-val" style="color: var(--accent-cyan);">15.8x normal</span>
+                        </div>
+                        <div class="metric-cell">
+                            <span class="metric-label">VWAP LEVEL</span>
+                            <span class="metric-val" style="color: var(--accent-amber);">$10.77</span>
+                        </div>
+                    </div>
+                    <div class="bracket-box">
+                        <div class="bracket-row">
+                            <span style="color: var(--text-muted);">Micro-Target 1 (1–2m):</span>
+                            <strong style="color: var(--accent-emerald);">$10.93 (+0.92%)</strong>
+                        </div>
+                        <div class="bracket-row">
+                            <span style="color: var(--text-muted);">Scalp Runner Target 2:</span>
+                            <strong style="color: var(--accent-cyan);">$11.10 (+2.5%)</strong>
+                        </div>
+                        <div class="bracket-row">
+                            <span style="color: var(--text-muted);">Hard Stop Loss:</span>
+                            <strong style="color: var(--accent-rose);">$10.77 (Below VWAP)</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="interactive-card">
+                    <div class="card-header-flex">
+                        <div>
+                            <div class="card-ticker-title">
+                                <span>AIOK</span>
+                                <span class="exchange-badge">NASDAQ</span>
+                            </div>
+                            <div class="company-subtitle">AI OKTO CORP.</div>
+                        </div>
+                        <span class="score-pill" style="color: var(--accent-purple); border-color: rgba(168,85,247,0.3); background: rgba(168,85,247,0.1);">75.0% PROBABILITY</span>
+                    </div>
+                    <div class="card-price-display">
+                        <span class="big-price">$12.02</span>
+                        <span class="pct-badge">+182.8%</span>
+                    </div>
+                    <div class="metrics-grid-2x2">
+                        <div class="metric-cell">
+                            <span class="metric-label">RELATIVE VOL (RVOL)</span>
+                            <span class="metric-val" style="color: var(--accent-cyan);">655.8x normal</span>
+                        </div>
+                        <div class="metric-cell">
+                            <span class="metric-label">FROM OPEN DELTA</span>
+                            <span class="metric-val" style="color: var(--accent-emerald);">+116.6%</span>
+                        </div>
+                    </div>
+                    <div class="bracket-box">
+                        <div class="bracket-row">
+                            <span style="color: var(--text-muted);">Micro-Target 1 (1–2m):</span>
+                            <strong style="color: var(--accent-emerald);">$12.38 (+3.0%)</strong>
+                        </div>
+                        <div class="bracket-row">
+                            <span style="color: var(--text-muted);">Scalp Runner Target 2:</span>
+                            <strong style="color: var(--accent-cyan);">$12.80 (+6.5%)</strong>
+                        </div>
+                        <div class="bracket-row">
+                            <span style="color: var(--text-muted);">Hard Stop Loss:</span>
+                            <strong style="color: var(--accent-rose);">$11.78</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. FULL SCANNER SHOWCASE -->
+        <section id="scanner-section">
+            <div class="section-tag">📊 REAL-TIME MARKET INTELLIGENCE</div>
+            <h2 class="section-title">4,500+ NASDAQ & NYSE <span>Universe Scanner</span></h2>
+            <p class="section-desc">
+                Sub-second batch queries scan every liquid US equity. Filter by relative volume, price range, or exchange to find anomalies the instant they occur.
+            </p>
+
+            <div class="interactive-container">
+                <div class="tab-bar">
+                    <button class="tab-btn active">4-Pillar Scoring Formula</button>
+                    <button class="tab-btn">Batch Query Schema</button>
+                    <button class="tab-btn">Live Python Scanner Output</button>
+                </div>
+                <div class="tab-content active">
+                    <div class="code-box">
+<span style="color: #64748b;"># Formula: Proprietary Momentum Scalp Matrix (0.0 to 99.9 Points)</span>
+<span style="color: #00d2ff;">1. Relative Volume (RVOL) Influx:</span> Up to 35 pts (RVOL &gt; 5x to 50x+)
+<span style="color: #00f59b;">2. VWAP Structural Control:</span>       Up to 30 pts (Price &gt; VWAP and positive expansion from open)
+<span style="color: #a855f7;">3. Session High Range Proximity:</span>  Up to 20 pts (Consolidating within top 5% of day)
+<span style="color: #f59e0b;">4. Fast Technical Confluence:</span>     Up to 15 pts (RSI-7 between 55–82, consensus rating)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. TRADINGVIEW DESKTOP CDP -->
+        <section id="desktop-cdp">
+            <div class="section-tag">🖥️ NATIVE DESKTOP CONTROL</div>
+            <h2 class="section-title">1-Click <span>TradingView Desktop Bridge</span></h2>
+            <p class="section-desc">
+                No copy-pasting tickers. ALPHA-3 connects to the native TradingView Desktop app on your machine via Chrome DevTools Protocol (CDP port 9222). Click a button in the web cockpit, and your actual desktop app instantly displays the 1-minute chart.
+            </p>
+
+            <div class="code-box">
+                <button class="btn-copy" onclick="copySnippet('cli-snippet')">Copy CLI</button>
+                <code id="cli-snippet">
+# Launch TradingView Desktop in remote debugging mode:
+./launch_tradingview.sh
+
+# Or control directly via global CLI:
+tv symbol NVDA        # Instantly changes desktop chart
+tv timeframe 1m       # Snaps to 1-minute scalp candles
+tv quote --symbol EVG # Pulls live institutional quote
+tv pine check --file pine_strategies/vwap_pullback_strategy.pine
+                </code>
+            </div>
+        </section>
+
+        <!-- 5. PINE SCRIPT STRATEGIES -->
+        <section id="pine-strategies">
+            <div class="section-tag">📈 VERIFIED PINE SCRIPT CODE</div>
+            <h2 class="section-title">Institutional <span>Pine Script v5 Strategies</span></h2>
+            <p class="section-desc">
+                Pre-compiled with zero errors and zero warnings against TradingView’s compiler. Includes automatic bracket targets and webhook payloads.
+            </p>
+
+            <div class="interactive-container">
+                <div class="tab-bar">
+                    <button class="tab-btn active">VWAP Trend Pullback Strategy</button>
+                    <button class="tab-btn">Premarket Breakout Strategy</button>
+                </div>
+                <div class="tab-content active">
+                    <div class="code-box">
+<span style="color: #00f59b;">//@version=5</span>
+strategy("AI Claude - VWAP Trend Pullback Strategy", overlay=true, default_qty_type=strategy.percent_of_equity, default_qty_value=10)
+
+fast_ema = ta.ema(close, 9)
+slow_ema = ta.ema(close, 21)
+trend_ema = ta.ema(close, 200)
+vwap_val = ta.vwap(hlc3)
+atr_val  = ta.atr(14)
+
+bullish_trend = (close > trend_ema) and (fast_ema > slow_ema)
+pullback_to_vwap = (low <= vwap_val) and (close >= vwap_val)
+long_entry = bullish_trend and pullback_to_vwap and (close > open)
+
+if (long_entry and strategy.position_size == 0)
+    stop_level = close - (atr_val * 1.5)
+    target_level = close + ((close - stop_level) * 2.0)
+    strategy.entry("Long", strategy.long)
+    strategy.exit("Exit", "Long", stop=stop_level, limit=target_level)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. DOCUMENTATION SUITE -->
+        <section id="docs-quickstart">
+            <div class="section-tag">📚 DOCUMENTATION SUITE</div>
+            <h2 class="section-title">Guides & Technical <span>Reference Manuals</span></h2>
+            <p class="section-desc">
+                Complete, step-by-step documentation detailing every component, configuration option, and risk rule.
+            </p>
+
+            <div class="marketing-grid">
+                <div class="channel-card" id="docs-manual">
+                    <div class="channel-header">
+                        <span>📖</span> Technical Manual
+                    </div>
+                    <div class="channel-desc">
+                        Full mathematical breakdown of the 4-pillar momentum matrix, TradingView CDP architecture, API reference, and risk controls.
+                    </div>
+                    <a href="docs/manual.md" class="channel-link">Open docs/manual.md ↗</a>
+                </div>
+
+                <div class="channel-card" id="docs-tutorial">
+                    <div class="channel-header">
+                        <span>🎓</span> Scalping Tutorial
+                    </div>
+                    <div class="channel-desc">
+                        Hands-on walkthrough: 8:30 AM premarket gap screening, opening bell scanning, 1-click sync, and scaling out at Target 1.
+                    </div>
+                    <a href="docs/tutorial.md" class="channel-link">Open docs/tutorial.md ↗</a>
+                </div>
+
+                <div class="channel-card">
+                    <div class="channel-header">
+                        <span>⏱️</span> 3-Min Quickstart
+                    </div>
+                    <div class="channel-desc">
+                        Rapid deployment checklist to clone, install, launch TradingView Desktop, and start the cockpit in under 180 seconds.
+                    </div>
+                    <a href="docs/quickstart.md" class="channel-link">Open docs/quickstart.md ↗</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. MARKETING & ADS KIT -->
+        <section id="marketing-suite">
+            <div class="section-tag">📢 OMNICHANNEL MARKETING SUITE</div>
+            <h2 class="section-title">Ready-to-Deploy <span>Ad & Content Campaigns</span></h2>
+            <p class="section-desc">
+                High-converting copy, viral scripts, and technical articles customized across 9 distinct channels in English and Korean.
+            </p>
+
+            <div class="marketing-grid">
+                <div class="channel-card" id="marketing-social">
+                    <div class="channel-header">
+                        <span>📱</span> Facebook Ads
+                        <span class="channel-badge">Direct Response</span>
+                    </div>
+                    <div class="channel-desc">Pain & solution direct-response ad copy, headlines, and visual suggestions.</div>
+                    <a href="marketing/facebook_ad.md" class="channel-link">View Facebook Ad ↗</a>
+                </div>
+
+                <div class="channel-card">
+                    <div class="channel-header">
+                        <span>📸</span> Instagram & Reels
+                        <span class="channel-badge">Visual & Video</span>
+                    </div>
+                    <div class="channel-desc">5-slide carousel post breakdown, 30-second viral Reels script, and hashtags.</div>
+                    <a href="marketing/instagram_post_and_reels.md" class="channel-link">View Instagram Kit ↗</a>
+                </div>
+
+                <div class="channel-card">
+                    <div class="channel-header">
+                        <span>🧵</span> Threads Series
+                        <span class="channel-badge">Viral Thread</span>
+                    </div>
+                    <div class="channel-desc">7-part viral thread breaking down why 95% of retail traders are late to runners.</div>
+                    <a href="marketing/threads_viral_thread.md" class="channel-link">View Threads Post ↗</a>
+                </div>
+
+                <div class="channel-card" id="marketing-naver-tistory">
+                    <div class="channel-header">
+                        <span>🇰🇷</span> 네이버 블로그
+                        <span class="channel-badge">Naver Blog</span>
+                    </div>
+                    <div class="channel-desc">서학개미를 위한 친절한 설명, 이모지, 3초 스캘핑 기법 및 무료 오픈소스 활용법.</div>
+                    <a href="marketing/naver_blog_post.md" class="channel-link">네이버 포스팅 보기 ↗</a>
+                </div>
+
+                <div class="channel-card">
+                    <div class="channel-header">
+                        <span>🇰🇷</span> 티스토리
+                        <span class="channel-badge">Tistory Quant</span>
+                    </div>
+                    <div class="channel-desc">개발자 & 퀀트 타겟: 아키텍처 다이어그램, FastAPI + CDP 연동 코드.</div>
+                    <a href="marketing/tistory_post.md" class="channel-link">티스토리 포스팅 보기 ↗</a>
+                </div>
+
+                <div class="channel-card">
+                    <div class="channel-header">
+                        <span>🌐</span> WordPress Article
+                        <span class="channel-badge">SEO Pillar</span>
+                    </div>
+                    <div class="channel-desc">Long-form SEO pillar post with meta descriptions, comparison tables, and FAQs.</div>
+                    <a href="marketing/wordpress_article.md" class="channel-link">View WordPress Post ↗</a>
+                </div>
+
+                <div class="channel-card">
+                    <div class="channel-header">
+                        <span>📬</span> Substack Newsletter
+                        <span class="channel-badge">Issue #42</span>
+                    </div>
+                    <div class="channel-desc">The Alpha Edge deep dive: data study on how the engine caught today's +182% runner.</div>
+                    <a href="marketing/newsletter_edition.md" class="channel-link">View Newsletter ↗</a>
+                </div>
+
+                <div class="channel-card">
+                    <div class="channel-header">
+                        <span>✉️</span> Email Sequence
+                        <span class="channel-badge">3-Part Nurture</span>
+                    </div>
+                    <div class="channel-desc">Automated nurture sequence: Welcome ➡️ The Math Formula ➡️ 1-Click Execution.</div>
+                    <a href="marketing/email_campaign.md" class="channel-link">View Email Sequence ↗</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. RAPID INSTALLATION -->
+        <section id="installation">
+            <div class="section-tag">🛠️ RAPID DEPLOYMENT</div>
+            <h2 class="section-title">Get Started in <span>Under 3 Minutes</span></h2>
+            <p class="section-desc">
+                Clone the repository, install Python dependencies, launch TradingView in debug mode, and open your web cockpit.
+            </p>
+
+            <div class="code-box">
+                <button class="btn-copy" onclick="copySnippet('install-snippet')">Copy Commands</button>
+                <code id="install-snippet">
+git clone https://github.com/henrynkoh/AI_Trading.git
+cd AI_Trading
+pip install -r requirements.txt
+./launch_tradingview.sh
+python3 server.py
+# Open http://localhost:5001
+                </code>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FLOATING CLICKABLE LINK TO GITHUB (BOTTOM RIGHT) -->
+    <a href="https://github.com/henrynkoh/AI_Trading" target="_blank" class="floating-github-link" title="Open GitHub Repository (henrynkoh/AI_Trading)">
+        <svg class="github-svg" viewBox="0 0 24 24">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        <div class="gh-badge-text">
+            <span class="gh-title">henrynkoh / AI_Trading</span>
+            <span class="gh-sub">Star on GitHub <span class="star-icon">★</span></span>
+        </div>
+    </a>
+
+    <!-- Interactive Script for Smooth Scroll, ScrollSpy, and Copying -->
+    <script>
+        // ScrollSpy to update active link in left sidebar
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Copy Code Snippet helper
+        function copySnippet(elementId) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            navigator.clipboard.writeText(el.innerText).then(() => {
+                const btn = el.parentElement.querySelector('.btn-copy');
+                if (btn) {
+                    const original = btn.innerText;
+                    btn.innerText = 'Copied! ✓';
+                    setTimeout(() => btn.innerText = original, 2000);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
